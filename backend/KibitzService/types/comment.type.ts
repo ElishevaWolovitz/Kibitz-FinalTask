@@ -5,5 +5,6 @@ export type CommentType = {
     commentName: string;
     shmoozerId: Types.ObjectId;
     text: string;
+    media?: string;
     createdAt?: Date;
 }
