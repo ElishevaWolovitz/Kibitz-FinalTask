@@ -1,7 +1,8 @@
 import express, { Router } from 'express';
 import { 
     controlCreateComment, 
-    controlReadAllComments,  
+    controlReadAllComments, 
+    controlReadComment, 
     controlDeleteComment 
 } from './comment.controller';
 import {
@@ -21,6 +22,11 @@ router.post(
 router.get(
     '/', 
     controlReadAllComments
+);
+router.get(
+    '/:id', 
+    validateParams(commentIdParamSchema), 
+    controlReadComment
 );
 router.delete(
     '/:id', 

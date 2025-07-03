@@ -5,7 +5,7 @@ export type CommentType = {
     commentName: string;
     shmoozerId: Types.ObjectId;
     kibId: Types.ObjectId;
-    parentCommentId: Types.ObjectId;
+    parentCommentId?: Types.ObjectId;
     text: string;
     media?: string;
     createdAt?: Date;
