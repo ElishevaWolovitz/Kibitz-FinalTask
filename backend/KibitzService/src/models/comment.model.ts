@@ -19,7 +19,6 @@ const commentSchema: Schema = new Schema({
   },
   patentCommentId: {
     type: Schema.Types.ObjectId,
-    required: true,
     ref: 'CommentModel',
   },
   text: {

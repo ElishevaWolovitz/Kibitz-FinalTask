@@ -12,6 +12,14 @@ export const repositoryReadAllComments = async (): Promise<CommentType[]>  => {
     return await CommentModel.find(); 
 };
 
+// Read One
+export const repositoryReadComment = async (commentId: string | Types.ObjectId): Promise<CommentType> => {
+    const readComment = await CommentModel.findById(commentId); 
+    if(!readComment)
+        throw new Error(`Comment (${commentId}) not able to be read.`);
+    return readComment;
+};
+
 // Delete
 export const repositoryDeleteComment = async (commentId: string | Types.ObjectId): Promise<CommentType> => {
     const deletedComment = await CommentModel.findByIdAndDelete(commentId); 
