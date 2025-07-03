@@ -2,9 +2,9 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import shmoozerRoutes from './shmoozer/shmoozer.router';
-import kibRoutes from './kib/kib.router';
-import commentRoutes from './comment/comment.router';
+import shmoozerRoutes from './src/shmoozer/shmoozer.router';
+import kibRoutes from './src/kib/kib.router';
+import commentRoutes from './src/comment/comment.router';
 
 
 dotenv.config();
