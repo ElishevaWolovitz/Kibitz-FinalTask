@@ -12,6 +12,16 @@ const commentSchema: Schema = new Schema({
     required: true,
     ref: 'ShmoozerModel',
   },
+  kibId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'KibModel',
+  },
+  patentCommentId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'CommentModel',
+  },
   text: {
     type: String,
     required: true,
