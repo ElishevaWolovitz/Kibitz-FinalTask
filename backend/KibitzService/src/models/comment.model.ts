@@ -17,7 +17,7 @@ const commentSchema: Schema = new Schema({
     required: true,
     ref: 'KibModel',
   },
-  patentCommentId: {
+  parentCommentId: {
     type: Schema.Types.ObjectId,
     ref: 'CommentModel',
   },
