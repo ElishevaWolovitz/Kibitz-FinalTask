@@ -9,7 +9,7 @@ export const repositoryCreateKib = async (kib: KibType): Promise<KibType> => {
 
 // Read All
 export const repositoryReadAllKibs = async (): Promise<KibType[]>  => {
-    return await KibModel.find(); 
+    return await KibModel.find().sort({ createdAt: -1 }); 
 };
 
 // Read One
