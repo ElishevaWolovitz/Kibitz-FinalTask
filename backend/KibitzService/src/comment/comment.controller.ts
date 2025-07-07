@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { 
     manageCreateComment, 
     manageReadAllComments, 
-    manageReadAllCommentsByKibId,
+    manageReadChildrenCommentsOfCommentId,
+    manageReadChildrenCommentsOfKibId,
     manageReadAllCommentsByShmoozerId,
     manageReadComment,
     manageDeleteComment 
@@ -10,7 +11,6 @@ import {
 import { CommentType } from "../types/comment.type";
 import {errorHandler } from '../handlers/error.handler';
 import {successHandler} from '../handlers/success.handler';
-import { Types } from "mongoose";
 
 // Create
 export const controlCreateComment = async (req: Request, res: Response) => {
@@ -28,11 +28,18 @@ export const controlReadAllComments = async (req: Request, res: Response) => {
         successHandler(res, `Read all comments.`, comments, 200);
 };
 
+// Read Children Comments of comment ID
+export const controlReadChildrenCommentsOfCommentId = async (req: Request, res: Response) => {
+    const { id: commentId } = req.params;
+    const comments = await manageReadChildrenCommentsOfCommentId(commentId).catch(errorHandler(res, 400));
+    if (comments) {
+        successHandler(res, 'Comments retrieved successfully', comments, 200);
+    }
+}
 // Read All Comments by Kib ID
-export const controlReadAllCommentsByKibId = async (req: Request, res: Response) => {
-    const { kibId: kibIdString } = req.params;
-    const kibId = new Types.ObjectId(kibIdString);
-    const comments = await manageReadAllCommentsByKibId(kibId).catch(errorHandler(res, 400));
+export const controlReadChildrenCommentsOfKibId = async (req: Request, res: Response) => {
+    const { id: kibId } = req.params;
+    const comments = await manageReadChildrenCommentsOfKibId(kibId).catch(errorHandler(res, 400));
     if (comments) {
         successHandler(res, 'Comments retrieved successfully', comments, 200);
     }
@@ -40,19 +47,16 @@ export const controlReadAllCommentsByKibId = async (req: Request, res: Response)
 
 // Read All Comments by Shmoozer ID
 export const controlReadAllCommentsByShmoozerId = async (req: Request, res: Response) => {
-    const { shmoozerId: shmoozerIdString } = req.params;
-    const shmoozerId = new Types.ObjectId(shmoozerIdString);
+    const { id: shmoozerId } = req.params;
     const comments = await manageReadAllCommentsByShmoozerId(shmoozerId).catch(errorHandler(res, 400));
     if (comments) {
         successHandler(res, 'Comments retrieved successfully', comments, 200);
-        console.log(`Comments for Shmoozer ID ${shmoozerId}:`, comments);
     }
 };
 
 // Read One
 export const controlReadComment = async (req: Request, res: Response) => {
-    const { id: commentIdString } = req.params;
-    const commentId = new Types.ObjectId(commentIdString);
+    const { id: commentId } = req.params;
     const comment = await manageReadComment(commentId).catch(errorHandler(res, 400));
     if(comment) 
         successHandler(res, `Read 1 comment (comment id: ${commentId}).`, comment, 200);
@@ -60,8 +64,7 @@ export const controlReadComment = async (req: Request, res: Response) => {
 
 // Delete
 export const controlDeleteComment = async (req: Request, res: Response) => {
-    const { id: commentIdString } = req.params;
-    const commentId = new Types.ObjectId(commentIdString);
+    const { id: commentId } = req.params;
     const deleteCommentResult = await manageDeleteComment(commentId).catch(errorHandler(res, 400));
     if(deleteCommentResult)
         successHandler(res, `Deleted 1 comment (comment id: ${commentId}).`, 

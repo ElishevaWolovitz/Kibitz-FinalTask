@@ -3,7 +3,8 @@ import {
     controlCreateComment, 
     controlReadAllComments, 
     controlReadComment, 
-    controlReadAllCommentsByKibId,
+    controlReadChildrenCommentsOfCommentId,
+    controlReadChildrenCommentsOfKibId,
     controlReadAllCommentsByShmoozerId,
     controlDeleteComment 
 } from './comment.controller';
@@ -30,12 +31,17 @@ router.get(
     '/', 
     controlReadAllComments
 );
-
-// Read All Comments by kib ID
+// Read Children Comments of comment ID
 router.get(
-  '/kib/:kibId',
+    '/children/:id',
+    validateParams(commentIdParamSchema),
+    controlReadChildrenCommentsOfCommentId
+)
+// Read Children Comments of kib ID
+router.get(
+  '/kib/:id',
   validateParams(kibIdParamSchema),
-  controlReadAllCommentsByKibId
+  controlReadChildrenCommentsOfKibId
 );
 
 // Read All Comments by shmoozer ID
