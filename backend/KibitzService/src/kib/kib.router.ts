@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import { 
     controlCreateKib, 
     controlReadAllKibs, 
+    controlReadKibsByShmoozerId,
     controlReadKib, 
     controlUpdateKib, 
     controlDeleteKib 
@@ -24,6 +25,11 @@ router.post(
 router.get(
     '/', 
     controlReadAllKibs
+);
+router.get(
+    '/shmoozer/:id', 
+    validateParams(kibIdParamSchema),
+    controlReadKibsByShmoozerId
 );
 router.get(
     '/:id', 

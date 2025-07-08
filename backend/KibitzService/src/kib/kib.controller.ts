@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { 
     manageCreateKib, 
     manageReadAllKibs, 
+    manageReadKibsByShmoozerId,
     manageReadKib, 
     manageUpdateKib, 
     manageDeleteKib 
@@ -23,6 +24,14 @@ export const controlReadAllKibs = async (req: Request, res: Response) => {
     const kibs = await manageReadAllKibs().catch(errorHandler(res, 400));
     if(kibs)
         successHandler(res, `Read all kibs.`, kibs, 200);
+};
+
+// Read kibs by shmoozer ID
+export const controlReadKibsByShmoozerId = async (req: Request, res: Response) => {
+    const { shmoozerId } = req.params;
+    const kibsResult = await manageReadKibsByShmoozerId(shmoozerId).catch(errorHandler(res, 400));
+    if(kibsResult)
+        successHandler(res, `Read kibs for shmoozer ${shmoozerId}.`, kibsResult, 200);
 };
 
 // Read One
