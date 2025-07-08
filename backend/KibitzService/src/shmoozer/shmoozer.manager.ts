@@ -1,7 +1,8 @@
 import { 
     repositoryCreateShmoozer, 
     repositoryReadAllShmoozers,
-    repositoryReadShmoozer
+    repositoryReadShmoozer,
+    repositoryFindShmoozerByName
 } from "./shmoozer.repository";
 import { ShmoozerType } from "../types/shmoozer.type";
 import { Types } from 'mongoose';
@@ -19,4 +20,9 @@ export const manageReadAllShmoozers = async (): Promise<ShmoozerType[]> => {
 export const manageReadShmoozer = async (shmoozerId: string | Types.ObjectId): 
     Promise<ShmoozerType> => {
     return await repositoryReadShmoozer(shmoozerId);
+};
+
+// Find Shmoozer by Name for login
+export const manageFindShmoozerByName = async (shmoozerName: string): Promise<ShmoozerType | null> => {
+    return await repositoryFindShmoozerByName(shmoozerName);
 };
