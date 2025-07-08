@@ -2,6 +2,7 @@ import { Types } from 'mongoose';
 import { 
     repositoryCreateKib, 
     repositoryReadAllKibs, 
+    repositoryReadKibsByShmoozerId,
     repositoryReadKib, 
     repositoryUpdateKib, 
     repositoryDeleteKib 
@@ -19,6 +20,12 @@ export const manageReadAllKibs = async ():
     Promise<KibType[]> => {
     return await repositoryReadAllKibs();
 }; 
+
+// Read kibs by shmoozer ID
+export const manageReadKibsByShmoozerId = async (shmoozerId: string | Types.ObjectId):
+    Promise<KibType[]> => {
+    return await repositoryReadKibsByShmoozerId(shmoozerId);
+};
 
 // Read One
 export const manageReadKib = async (kibId: string | Types.ObjectId): 
