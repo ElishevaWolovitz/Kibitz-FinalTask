@@ -21,9 +21,9 @@ export const repositoryReadKib = async (kibId: string | Types.ObjectId): Promise
 };
 
 // Read kibs by shmoozer ID 
-export const repositoryReadKibsByShmoozerId = async (shmoozerId: string | Types.ObjectId): 
+export const repositoryReadKibsByShmoozerId = async (shmoozerName: string | Types.ObjectId): 
     Promise<KibType[]> => {
-        const kibs = await KibModel.find({ shmoozerId }).sort({ createdAt: -1 });
+        const kibs = await KibModel.find({ shmoozerName }).sort({ createdAt: -1 });
         return kibs;
 };
 

@@ -27,8 +27,7 @@ router.get(
     controlReadAllKibs
 );
 router.get(
-    '/shmoozer/:id', 
-    validateParams(kibIdParamSchema),
+    '/shmoozer', 
     controlReadKibsByShmoozerId
 );
 router.get(
