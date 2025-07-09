@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { 
     repositoryCreateKib, 
     repositoryReadAllKibs, 
-    repositoryReadKibsByShmoozerId,
+    repositoryReadKibsByShmoozerName,
     repositoryReadKib, 
     repositoryUpdateKib, 
     repositoryDeleteKib 
@@ -12,36 +12,37 @@ import { KibType } from "../types/kib.type";
 // Create
 export const manageCreateKib = async (kib: KibType): 
     Promise<KibType> => {
-    return await repositoryCreateKib(kib); 
+        return await repositoryCreateKib(kib); 
 };
 
 // Read All
 export const manageReadAllKibs = async ():
     Promise<KibType[]> => {
-    return await repositoryReadAllKibs();
+        return await repositoryReadAllKibs();
 }; 
 
 // Read kibs by shmoozer ID
-export const manageReadKibsByShmoozerId = async (shmoozerName: string | Types.ObjectId):
+export const manageReadKibsByShmoozerName = async (shmoozerName: string | Types.ObjectId):
     Promise<KibType[]> => {
-    return await repositoryReadKibsByShmoozerId(shmoozerName);
+    return await repositoryReadKibsByShmoozerName(shmoozerName);
 };
 
 // Read One
 export const manageReadKib = async (kibId: string | Types.ObjectId): 
     Promise<KibType> => {
-    return await repositoryReadKib(kibId);
+        return await repositoryReadKib(kibId);
 };
 
 // Update   
 export const manageUpdateKib = async ( kibId: string | Types.ObjectId, 
-    updateData: Partial<KibType>): 
+    updateData: Partial<KibType>,
+    shmoozerName: string): 
     Promise<KibType> => {
-    return await repositoryUpdateKib(kibId, updateData);
+        return await repositoryUpdateKib(kibId, updateData, shmoozerName);
 };
 
 // Delete
-export const manageDeleteKib = async (kibId: string | Types.ObjectId): 
+export const manageDeleteKib = async (kibId: string | Types.ObjectId, shmoozerName: string): 
     Promise<KibType> => {
-    return await repositoryDeleteKib(kibId);
+        return await repositoryDeleteKib(kibId, shmoozerName);
 };

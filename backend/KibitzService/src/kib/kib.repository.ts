@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { KibModel } from "../models/kib.model";
 import { KibType } from "../types/kib.type";
+import { ShmoozerModel } from "../models/shmoozer.model";
 
 // Create
 export const repositoryCreateKib = async (kib: KibType): Promise<KibType> => {
@@ -21,24 +22,44 @@ export const repositoryReadKib = async (kibId: string | Types.ObjectId): Promise
 };
 
 // Read kibs by shmoozer ID 
-export const repositoryReadKibsByShmoozerId = async (shmoozerName: string | Types.ObjectId): 
+export const repositoryReadKibsByShmoozerName = async (shmoozerName: string | Types.ObjectId): 
     Promise<KibType[]> => {
-        const kibs = await KibModel.find({ shmoozerName }).sort({ createdAt: -1 });
+        const shmoozer = await ShmoozerModel.findOne({shmoozerName});
+        const shmoozerId = shmoozer ? shmoozer._id.toString() : null;
+        const kibs = await KibModel.find({shmoozerId}).sort({ createdAt: -1 });
         return kibs;
 };
 
 // Update   
-export const repositoryUpdateKib = async ( kibId: string | Types.ObjectId, updateData: Partial<KibType>): Promise<KibType> => {
-    const updatedKib = await KibModel.findByIdAndUpdate(kibId, updateData, { new: true });
-    if(!updatedKib)
-        throw new Error(`Kib (${kibId}) not able to be updated.`);
-    return updatedKib;
+export const repositoryUpdateKib = async ( kibId: string | Types.ObjectId, 
+    updateData: Partial<KibType>,
+    shmoozerName: string
+    ): Promise<KibType> => {
+        const shmoozer = await ShmoozerModel.findOne({shmoozerName});
+        const shmoozerId = shmoozer ? shmoozer._id.toString(): null;
+        const kib = await KibModel.findById(kibId);
+        const kibShmoozerId = kib ? kib.shmoozerId.toString() : null;
+        if(!shmoozerId || !kibShmoozerId || !(shmoozerId === kibShmoozerId)) {
+            throw new Error(`Shmoozer ${shmoozerName} is not authorized to update kib (${kibId}).`);
+        }
+        const updatedKib = await KibModel.findByIdAndUpdate(kibId, updateData, { new: true });
+        if(!updatedKib)
+            throw new Error(`Kib (${kibId}) not able to be updated.`);
+        return updatedKib;
 };
 
 // Delete
-export const repositoryDeleteKib = async (kibId: string | Types.ObjectId): Promise<KibType> => {
-    const deletedKib = await KibModel.findByIdAndDelete(kibId); 
-    if(!deletedKib)
-        throw new Error(`Kib (${kibId}) not able to be deleted.`);
-    return deletedKib; 
+export const repositoryDeleteKib = async (kibId: string | Types.ObjectId, shmoozerName: string
+    ): Promise<KibType> => {
+        const shmoozer = await ShmoozerModel.findOne({shmoozerName});
+        const shmoozerId = shmoozer ? shmoozer._id.toString() : null;
+        const kib = await KibModel.findById(kibId);
+        const kibShmoozerId = kib ? kib.shmoozerId.toString() : null;
+        if(!shmoozerId || !kibShmoozerId || !(shmoozerId === kibShmoozerId)) {
+            throw new Error(`Shmoozer ${shmoozerName} is not authorized to update kib (${kibId}).`);
+        }
+        const deletedKib = await KibModel.findByIdAndDelete(kibId); 
+        if(!deletedKib)
+            throw new Error(`Kib (${kibId}) not able to be deleted.`);
+        return deletedKib; 
 };

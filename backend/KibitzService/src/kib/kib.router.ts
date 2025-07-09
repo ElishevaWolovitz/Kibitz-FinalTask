@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import { 
     controlCreateKib, 
     controlReadAllKibs, 
-    controlReadKibsByShmoozerId,
+    controlReadKibsByShmoozerName,
     controlReadKib, 
     controlUpdateKib, 
     controlDeleteKib 
@@ -28,7 +28,7 @@ router.get(
 );
 router.get(
     '/shmoozer', 
-    controlReadKibsByShmoozerId
+    controlReadKibsByShmoozerName
 );
 router.get(
     '/:id', 
