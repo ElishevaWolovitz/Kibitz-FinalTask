@@ -1,4 +1,6 @@
 import HomePage from './HomePage';
+import KibsPage from './KibsPage';
+
 export const routes = [ 
     '/',
     'register',
@@ -7,5 +9,6 @@ export const routes = [
     'shmoozer'];
 
 export const pages = [
-    HomePage
+    HomePage,
+    KibsPage
 ];
