@@ -8,3 +8,7 @@ export const shmoozerBodySchema = Joi.object({
 export const shmoozerIdParamSchema = Joi.object({
     id: Joi.string().hex().length(24).required()
 });
+
+export const shmoozerNameParamSchema = Joi.object({
+    shmoozerName: Joi.string().required()
+});

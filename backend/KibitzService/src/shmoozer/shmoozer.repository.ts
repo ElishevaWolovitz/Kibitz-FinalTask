@@ -20,3 +20,8 @@ export const repositoryReadShmoozer = async (shmoozerId: string | Types.ObjectId
         throw new Error(`Shmoozer (${shmoozerId}) not able to be read.`);
     return readShmoozer;
 };
+
+// Find Shmoozer by Name for login
+export const repositoryFindShmoozerByName = async (shmoozerName: string): Promise<ShmoozerType | null> => {
+    return await ShmoozerModel.findOne({ shmoozerName });
+};
