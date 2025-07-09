@@ -9,11 +9,11 @@ import type { KibType } from '../../types/kib.types';
 import { getKibs, editKib, deleteKib, filterKibsByName, createNewKib } from './functions';
 import Spinner from '../../components/Spinner';
 import { Styles } from './styles';
-import { toastifyTimer } from '../../const';
+import { toastifyTimer } from '../../consts';
 import { partial } from 'lodash/fp';
 import { CreateNewItemButtonStyles } from '../../components/Button/CreateNewItemButton/styles';
 import PrintKib from '../../structures/prints/PrintKib';
-import { api } from '../../const';
+import { api } from '../../consts';
 
 
 const KibsPage = () => {

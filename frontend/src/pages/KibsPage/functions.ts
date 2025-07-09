@@ -4,13 +4,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import type { KibType } from "../../types/kib.types";
 import { handleError } from "../../functions";
 import { map, filter, includes } from 'lodash/fp';
+import { route } from "./consts";
 
 export const getKibs = async(
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   api: AxiosInstance) => {
     setLoading(false);
-    const kibs = await api.get('/kibs').catch(handleError("Failed to get kibs from database"))
+    const kibs = await api.get(`${route}/shmoozer`,{})
+        .catch(handleError("Failed to get kibs from database"))
     if(kibs)
       setKibs(kibs.data.data);
       setLoading(false);
@@ -24,7 +26,7 @@ export const editKib = async (
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   editedKib: KibType,) => {
     const { _id, ...kibData } = editedKib;
-    const updatedKibResults = await api.patch(`/kibs/${editedKib._id}`, kibData)
+    const updatedKibResults = await api.patch(`${route}/${editedKib._id}`, kibData)
       .catch(handleError("Failed to update kib. Please try again."));
     if (updatedKibResults)
       {
@@ -43,7 +45,7 @@ export const deleteKib = async (
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   kibs: KibType[],
   kibToDelete: KibType) => {
-  const deleteKibResults = await api.delete(`/kibs/${kibToDelete._id}`).catch(handleError("Failed to delete kib. Please try again."));
+  const deleteKibResults = await api.delete(`${route}/${kibToDelete._id}`).catch(handleError("Failed to delete kib. Please try again."));
   if(deleteKibResults) {
     setKibs(filter(findKibToDeleteById(kibToDelete))(kibs));
     console.log(`Deleted kib with id: ${kibToDelete._id}`);
@@ -64,7 +66,7 @@ export const createNewKib = async (
   api: AxiosInstance,
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   kibDataToCreate: KibType) => {
-    const createNewKibResults = await api.post("/kibs", kibDataToCreate).catch(handleError("Failed to create new kib. Please try again."));
+    const createNewKibResults = await api.post(`${route}`, kibDataToCreate).catch(handleError("Failed to create new kib. Please try again."));
   if(createNewKibResults){
       const newKib = createNewKibResults.data.data; 
       setKibs(appendKib(newKib));

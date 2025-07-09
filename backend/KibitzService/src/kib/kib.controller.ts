@@ -59,7 +59,7 @@ export const controlUpdateKib = async (req: Request, res: Response) => {
             successHandler(res, `Shmoozer ${shmoozerName} updated 1 kib (kib id: ${kibId}).`, updatedKib, 200);
     }
     else 
-        errorHandler(res, 400)(new Error("cannot edit other shmoozers kibs"));
+        errorHandler(res, 400)(new Error("cannot edit, no shmoozer logged in"));
 };
 
 // Delete a specific shmoozers kib given shmoozerName
@@ -72,6 +72,6 @@ export const controlDeleteKib = async (req: Request, res: Response) => {
             successHandler(res, `Shmoozer ${shmoozerName} deleted 1 kib (kib id: ${kibId}).`, deleteKibResult, 200);
     }
     else 
-        errorHandler(res, 400)(new Error("cannot delete other shmoozers kibs"));
+        errorHandler(res, 400)(new Error("cannot delete, no shmoozer logged in"));
 }
 
