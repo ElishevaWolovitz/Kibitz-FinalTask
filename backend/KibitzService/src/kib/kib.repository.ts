@@ -20,6 +20,13 @@ export const repositoryReadKib = async (kibId: string | Types.ObjectId): Promise
     return readKib;
 };
 
+// Read kibs by shmoozer ID 
+export const repositoryReadKibsByShmoozerId = async (shmoozerId: string | Types.ObjectId): 
+    Promise<KibType[]> => {
+        const kibs = await KibModel.find({ shmoozerId }).sort({ createdAt: -1 });
+        return kibs;
+};
+
 // Update   
 export const repositoryUpdateKib = async ( kibId: string | Types.ObjectId, updateData: Partial<KibType>): Promise<KibType> => {
     const updatedKib = await KibModel.findByIdAndUpdate(kibId, updateData, { new: true });

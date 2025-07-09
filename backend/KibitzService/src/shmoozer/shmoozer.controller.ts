@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { 
     manageCreateShmoozer, 
     manageReadAllShmoozers,
-    manageReadShmoozer
+    manageReadShmoozer,
+    manageFindShmoozerByName
 } from "./shmoozer.manager";
 import { ShmoozerType } from "../types/shmoozer.type";
 import { errorHandler } from '../handlers/error.handler';
@@ -29,4 +30,14 @@ export const controlReadShmoozer = async (req: Request, res: Response) => {
     const shmoozer = await manageReadShmoozer(shmoozerId).catch(errorHandler(res, 400));
     if(shmoozer) 
         successHandler(res, `Read 1 shmoozer (shmoozer id: ${shmoozerId}).`, shmoozer, 200);
+};
+
+// Find Shmoozer by Name for login
+export const controlFindShmoozeByName = async (req: Request, res: Response) => {
+    const { shmoozerName } = req.body;
+    const shmoozer = await manageFindShmoozerByName(shmoozerName).catch(errorHandler(res, 400));
+    if(shmoozer) 
+        successHandler(res, `Login successful for shmoozer: ${shmoozerName}.`, shmoozer, 200);
+    else
+        console.log(`Shmoozer with name ${shmoozerName} not found.`);
 };

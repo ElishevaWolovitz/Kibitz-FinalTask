@@ -3,7 +3,10 @@ import {
     repositoryCreateComment, 
     repositoryReadAllComments,  
     repositoryReadComment,
-    repositoryDeleteComment 
+    repositoryReadChildrenCommentsOfCommentId,
+    repositoryReadChildrenCommentsOfKibId,
+    repositoryReadAllCommentsByShmoozerId,
+    repositoryDeleteCommentsByParentId
 } from "./comment.repository";
 import { CommentType } from "../types/comment.type";
 
@@ -19,6 +22,21 @@ export const manageReadAllComments = async ():
     return await repositoryReadAllComments();
 }; 
 
+// Read Children Comments of comment ID
+export const manageReadChildrenCommentsOfCommentId = async (commentId: string | Types.ObjectId): Promise<CommentType[]> => {
+  return await repositoryReadChildrenCommentsOfCommentId(commentId);
+}
+
+// Read Children Comments of kib ID 
+export const manageReadChildrenCommentsOfKibId = async (kibId: string | Types.ObjectId): Promise<CommentType[]> => {
+  return await repositoryReadChildrenCommentsOfKibId(kibId);
+};
+
+// Read All Comments by Shmoozer ID
+export const manageReadAllCommentsByShmoozerId = async (shmoozerId: string | Types.ObjectId): Promise<CommentType[]> => {
+  return await repositoryReadAllCommentsByShmoozerId(shmoozerId);
+};
+
 // Read One
 export const manageReadComment = async (commentId: string | Types.ObjectId): 
     Promise<CommentType> => {
@@ -28,5 +46,5 @@ export const manageReadComment = async (commentId: string | Types.ObjectId):
 // Delete
 export const manageDeleteComment = async (commentId: string | Types.ObjectId): 
     Promise<CommentType> => {
-    return await repositoryDeleteComment(commentId);
+        return await repositoryDeleteCommentsByParentId(commentId);
 };
