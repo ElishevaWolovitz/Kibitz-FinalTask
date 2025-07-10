@@ -21,7 +21,7 @@ const LoginPage = () => {
     if (!shmoozerName) return;
     const existingShmoozer = await api.get(`/shmoozers/login/${shmoozerName}`)
         .catch(handleError("Error fetching shmoozer:"));
-    if (existingShmoozer?.data.status != 200) {
+    if (existingShmoozer?.data.data === null) {
       toast.error("Shmoozer not found. Please register first.");
       reset();
       return; 
@@ -31,7 +31,7 @@ const LoginPage = () => {
   };
 
   const handleRegister = () => {
-    navigate("/register");
+    navigate("/registration");
   };
 
   return (
