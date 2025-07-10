@@ -1,8 +1,10 @@
 import type { LogoutButtonProps } from "./types";
+import { Styles } from "./styles";
 
 const LogoutButton = ({ onClick }: LogoutButtonProps) => {
-  return (
-    <button type="button" onClick={onClick}>
+    const classes = Styles();
+    return (
+    <button type="button" className={classes.button} onClick={onClick}>
       Logout
     </button>
   )

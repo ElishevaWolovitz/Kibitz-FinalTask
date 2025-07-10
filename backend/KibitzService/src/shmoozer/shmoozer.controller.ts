@@ -34,10 +34,12 @@ export const controlReadShmoozer = async (req: Request, res: Response) => {
 
 // Find Shmoozer by Name for login
 export const controlFindShmoozeByName = async (req: Request, res: Response) => {
-    const { shmoozerName } = req.body;
+    const { shmoozerName } = req.params;
     const shmoozer = await manageFindShmoozerByName(shmoozerName).catch(errorHandler(res, 400));
     if(shmoozer) 
         successHandler(res, `Login successful for shmoozer: ${shmoozerName}.`, shmoozer, 200);
-    else
+    else{
+        res.status(201).json({ message: `Shmoozer with name ${shmoozerName} not found.`, data: shmoozerName });
         console.log(`Shmoozer with name ${shmoozerName} not found.`);
+    }
 };

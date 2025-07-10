@@ -27,9 +27,9 @@ router.get(
 );
 
 // Login endpoint
-router.post(
+router.get(
     '/login/:shmoozerName',
-    validateBody(shmoozerNameParamSchema),
+    validateParams(shmoozerNameParamSchema),
     controlFindShmoozeByName
 );
 export default router;

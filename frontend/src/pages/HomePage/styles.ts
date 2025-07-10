@@ -33,4 +33,10 @@ export const Styles = createUseStyles({
     boxShadow: '0 2px 8px rgba(29,161,242,0.08)',
     border: '1px solid #657786',
   },
+  logoutButton: {
+    position: "absolute",
+    top: "1rem",
+    right: "1rem",
+    padding: "0.4rem 1rem",
+  }
 });

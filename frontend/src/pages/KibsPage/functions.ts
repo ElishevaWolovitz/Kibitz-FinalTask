@@ -5,7 +5,6 @@ import type { KibType } from "../../types/kib.types";
 import { handleError } from "../../functions";
 import { map, filter, includes } from 'lodash/fp';
 import { route } from "./consts";
-import { useShmoozerName } from '../../contexts/ShmoozerNameContext/ShmoozerNameContext';
 
 export const getKibs = async(
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,

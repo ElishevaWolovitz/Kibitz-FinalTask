@@ -25,6 +25,6 @@ export const ShmoozerNameProvider = ({ children }: { children: ReactNode }) => {
 
 export const useShmoozerName = () => {
   const context = useContext(ShmoozerNameContext);
-  if (!context) throw new Error("useUser must be used inside UserProvider");
+  if (!context) throw new Error("useShmoozer must be used inside ShmoozerProvider");
   return context;
 };

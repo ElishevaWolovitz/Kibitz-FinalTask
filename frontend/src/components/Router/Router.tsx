@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import type { RouterProps } from './types';
-import { map, partial } from 'lodash/fp'
+import { partial } from 'lodash/fp';
+
 
 const Router = ({routes, pages}: RouterProps) => {
     const setRoute = (pages: React.ComponentType[], path: string, i: number) => {
         const Page = pages[i];
         return (
             <Route
-                key={path}
                 path={path}
                 element={<Page />}
             />
@@ -15,7 +15,7 @@ const Router = ({routes, pages}: RouterProps) => {
     };
     return (
       <Routes>
-        {map(partial(setRoute, [pages]), routes)}
+        {routes.map(partial(setRoute, [pages]))}
       </Routes>
   )
 }
