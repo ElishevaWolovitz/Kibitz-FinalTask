@@ -1,5 +1,6 @@
 export type ShmoozerContextType = {
   shmoozerName: string | null;
-  login: (name: string) => void;
+  shmoozerId?: string | null;
+  login: (name: string, id: string|null) => void;
   logout: () => void;
 };

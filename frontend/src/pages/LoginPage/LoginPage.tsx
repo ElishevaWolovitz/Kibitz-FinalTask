@@ -19,14 +19,14 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginPageFormType) => {
     const shmoozerName = data.shmoozerName.trim();
     if (!shmoozerName) return;
-    const existingShmoozer = await api.get(`/shmoozers/login/${shmoozerName}`)
+    const existingShmoozer = await api.get(`/shmoozer/login/${shmoozerName}`)
         .catch(handleError("Error fetching shmoozer:"));
     if (existingShmoozer?.data.data === null) {
       toast.error("Shmoozer not found. Please register first.");
       reset();
       return; 
     }
-    login(shmoozerName);
+    login(shmoozerName, existingShmoozer?.data.data._id);
     navigate("/home");
   };
 

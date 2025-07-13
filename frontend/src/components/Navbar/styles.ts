@@ -1,7 +1,6 @@
 export const Styles = {
   nav: {
     backgroundColor: "#fff",
-    borderBottom: "1px solid #e6ecf0",
     padding: "0.75rem 2rem",
     display: "flex",
     alignItems: "center",

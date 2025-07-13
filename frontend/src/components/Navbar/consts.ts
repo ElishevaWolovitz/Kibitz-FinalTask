@@ -1,6 +1,6 @@
 export const navItems = [
     { to: "/home", label: "Home" },
-    { to: "/shmoozers", label: "Shmoozers" },
+    { to: "/shmoozer", label: "Shmoozer" },
     { to: "/kibs", label: "Kibs" }
 ];
 

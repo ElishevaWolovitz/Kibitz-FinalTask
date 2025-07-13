@@ -5,19 +5,26 @@ const ShmoozerNameContext = createContext<ShmoozerContextType | undefined>(undef
 
 export const ShmoozerNameProvider = ({ children }: { children: ReactNode }) => {
   const [shmoozerName, setShmoozerName] = useState(() => localStorage.getItem("shmoozerName"));
-
-  const login = (name: string) => {
+  const [shmoozerId, setShmoozerId] = useState(() => localStorage.getItem("shmoozerId") || '');
+  
+  const login = (name: string, id: string|null) => {
     localStorage.setItem("shmoozerName", name);
+    if (id !== null) {
+      localStorage.setItem("shmoozerId", id);
+      setShmoozerId(id);
+    }
     setShmoozerName(name);
   };
 
   const logout = () => {
     localStorage.removeItem("shmoozerName");
+    localStorage.removeItem("shmoozerId");
     setShmoozerName(null);
+    setShmoozerId('');
   };
 
   return (
-    <ShmoozerNameContext.Provider value={{ shmoozerName, login, logout }} >
+    <ShmoozerNameContext.Provider value={{ shmoozerName, shmoozerId, login, logout }} >
       {children}
     </ShmoozerNameContext.Provider>
   );

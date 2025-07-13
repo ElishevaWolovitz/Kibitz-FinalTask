@@ -17,7 +17,7 @@ const PORT: number = parseInt(process.env.PORT || '3000', 10);
 const mongoDBURL: string = process.env.MONGODB_URL || 'mongodb://localhost:27017/KibitzFinalDB';
 
 app.use(express.json());
-app.use('/shmoozers', shmoozerRoutes);
+app.use('/shmoozer', shmoozerRoutes);
 app.use('/kibs', kibRoutes);
 app.use('/comments', commentRoutes);
 

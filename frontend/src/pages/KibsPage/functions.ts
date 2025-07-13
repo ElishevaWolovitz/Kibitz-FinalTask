@@ -3,21 +3,28 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import type { KibType } from "../../types/kib.types";
 import { handleError } from "../../functions";
-import { map, filter, includes } from 'lodash/fp';
+import { map, filter, includes} from 'lodash/fp';
 import { route } from "./consts";
+import { useShmoozerName } from "../../contexts/ShmoozerNameContext/ShmoozerNameContext";
 
 export const getKibs = async(
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   api: AxiosInstance) => {
     setLoading(false);
-    const kibs = await api.get(`${route}/shmoozer`,{})
+    const kibs = await api.get(`${route}`,{})
         .catch(handleError("Failed to get kibs from database"))
     if(kibs)
       setKibs(kibs.data.data);
       setLoading(false);
 }
-
+export const checkLoggedInShmoozerForKib = (kib: KibType) => {
+  const { shmoozerId } = useShmoozerName();
+  if (shmoozerId != kib.shmoozerId) {
+    return false;
+  }
+  return true;
+}
 const findAndEditKib = (editedKib: KibType) => (kib: KibType) =>
   kib._id === editedKib._id ? { ...kib, ...editedKib } : kib;
 
@@ -25,9 +32,15 @@ export const editKib = async (
   api: AxiosInstance,
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   editedKib: KibType,) => {
+    const { shmoozerName, shmoozerId } = useShmoozerName();
+    console.log("in edit kib function and shmoozerName context is:", shmoozerName);
+    if(shmoozerId != editedKib.shmoozerId) {
+      toast.error("You can only edit your own kibs.");
+      return null;
+    }
     const { _id, ...kibData } = editedKib;
     const updatedKibResults = await api.patch(`${route}/${editedKib._id}`, kibData)
-      .catch(handleError("Failed to update kib. Please try again."));
+    .catch(handleError("Failed to update kib. Please try again."));
     if (updatedKibResults)
       {
         //convert prev.map to functional programing style
@@ -35,7 +48,8 @@ export const editKib = async (
         toast.success("Kib updated successfully!");
         console.log("Kib updated!");
       }
-};
+    };
+
 
 const findKibToDeleteById = (kibToDelete: KibType) => (kib: KibType) =>
   kib._id !== kibToDelete._id
@@ -45,6 +59,12 @@ export const deleteKib = async (
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   kibs: KibType[],
   kibToDelete: KibType) => {
+  const { shmoozerName, shmoozerId } = useShmoozerName();
+  console.log("in edit kib function and shmoozerName context is:", shmoozerName);
+  if(shmoozerId != kibToDelete.shmoozerId) {
+    toast.error("You can only edit your own kibs.");
+    return null;
+  }
   const deleteKibResults = await api.delete(`${route}/${kibToDelete._id}`).catch(handleError("Failed to delete kib. Please try again."));
   if(deleteKibResults) {
     setKibs(filter(findKibToDeleteById(kibToDelete))(kibs));

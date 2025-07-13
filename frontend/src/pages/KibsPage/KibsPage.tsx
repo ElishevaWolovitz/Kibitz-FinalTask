@@ -6,7 +6,13 @@ import KibEditModal from '../../structures/modals/EditKibModal';
 import KibCreateNewModal from '../../structures/modals/CreateNewKibModal';
 import List from '../../components/List';
 import type { KibType } from '../../types/kib.types';
-import { getKibs, editKib, deleteKib, filterKibsByName, createNewKib } from './functions';
+import { getKibs, 
+  editKib, 
+  deleteKib, 
+  filterKibsByName, 
+  createNewKib,
+  checkLoggedInShmoozerForKib
+} from './functions';
 import Spinner from '../../components/Spinner';
 import { Styles } from './styles';
 import { toastifyTimer } from '../../consts';
@@ -14,7 +20,9 @@ import { partial } from 'lodash/fp';
 import { CreateNewItemButtonStyles } from '../../components/Button/CreateNewItemButton/styles';
 import PrintKib from '../../structures/prints/PrintKib';
 import { api } from '../../consts';
-
+import LogoutButton from '../../components/Button/LogoutButton';
+import { useShmoozerName } from "../../contexts/ShmoozerNameContext/ShmoozerNameContext";
+import { useNavigate } from "react-router-dom";
 
 const KibsPage = () => {
   const [kibs, setKibs] = useState<KibType[]>([]);
@@ -23,7 +31,12 @@ const KibsPage = () => {
   const [filteredKibs, setFilteredKibs] = useState<KibType[]>([])
   const classes = Styles();
   const createNewItemButtonClasses = CreateNewItemButtonStyles();
-
+  const { logout } = useShmoozerName();
+  const navigate = useNavigate();
+  const onLogout = () => {
+      logout();
+      navigate("/");
+    };
   useEffect(() => {
     getKibs(setKibs, setLoading, api);
   }, [api]);
@@ -31,7 +44,10 @@ const KibsPage = () => {
   return (
     <>
       <ToastContainer autoClose={toastifyTimer}/>
-      <Navbar />
+      <div className={classes.topBar}>
+        <Navbar />
+        <LogoutButton onClick={onLogout}/>
+      </div>
       <div className={classes.pageContainer}>
         <div className={classes.headerContainer}>
           <h1 className={classes.title}>Kibs Page</h1>
@@ -46,7 +62,8 @@ const KibsPage = () => {
             <List 
                 items={filteredKibs}
                 ItemPrint={PrintKib}
-                editItem={partial(editKib,[api, setKibs])}
+                checkLoggedInUserForPost={checkLoggedInShmoozerForKib}
+                editItem={partial(editKib, [api, setKibs])}
                 deleteItem={partial( deleteKib, [api, setKibs, kibs])}
                 EditItemModal={KibEditModal}
             />
