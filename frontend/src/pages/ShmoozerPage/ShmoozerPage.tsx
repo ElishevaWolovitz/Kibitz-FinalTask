@@ -14,11 +14,11 @@ import { useShmoozerName } from "../../contexts/ShmoozerNameContext/ShmoozerName
 const ShmoozerPage = () => {
   const [shmoozer, setShmoozer] = useState<ShmoozerType>({} as ShmoozerType);
   const [loading, setLoading] = useState(true);
-  const { shmoozerName } = useShmoozerName();
+  const { shmoozerName, shmoozerId } = useShmoozerName();
   const classes = Styles();
   
   useEffect(() => {
-    getShmoozer(setShmoozer, shmoozerName, setLoading, api)
+    getShmoozer(setShmoozer,  shmoozerId ?? null, setLoading, api)
   }, [api]); 
 
   return (
@@ -34,9 +34,8 @@ const ShmoozerPage = () => {
             <Spinner />
           ) : ( 
           <>
-            <Card
+            <PrintShmoozer
               item={shmoozer}
-              ItemPrint={PrintShmoozer}
             />
           </>
         )}

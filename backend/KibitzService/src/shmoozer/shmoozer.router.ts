@@ -33,10 +33,10 @@ router.get(
     controlFindShmoozeByName
 );
 
-// Read One Shmoozer by ShmoozerName endpoint
-router.get(
-    '/:shmoozerName',
-    validateParams(shmoozerNameParamSchema),
-    controlFindShmoozeByName
-);
+// // Read One Shmoozer by ShmoozerName endpoint
+// router.get(
+//     '/:shmoozerName',
+//     validateParams(shmoozerNameParamSchema),
+//     controlFindShmoozeByName
+// );
 export default router;

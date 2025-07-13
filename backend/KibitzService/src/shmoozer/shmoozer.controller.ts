@@ -37,9 +37,10 @@ export const controlReadShmoozer = async (req: Request, res: Response) => {
         successHandler(res, `Read 1 shmoozer (shmoozer id: ${shmoozerId}).`, shmoozer, 200);
 };
 
-// Find Shmoozer by Name for login
+// Find Shmoozer by Name 
 export const controlFindShmoozeByName = async (req: Request, res: Response) => {
-    const { shmoozerName } = req.params;
+    const { shmoozerName: shmoozerName } = req.params;
+    console.log(`Attempting to find shmoozer by name in shmoozer backend controller: ${shmoozerName}`);
     const shmoozer = await manageFindShmoozerByName(shmoozerName).catch(errorHandler(res, 400));
     if(shmoozer) 
         successHandler(res, `Login successful for shmoozer: ${shmoozerName}.`, shmoozer, 200);
