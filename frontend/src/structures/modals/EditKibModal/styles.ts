@@ -30,14 +30,6 @@ export const Styles = createUseStyles({
     gap: '1.5rem',
     position: 'relative',
   },
-  header: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    color: '#1da1f2',
-    marginBottom: '0.5rem',
-    textAlign: 'center',
-    letterSpacing: '0.5px',
-  },
   closeButton: {
     position: 'absolute',
     top: 18,
@@ -55,6 +47,14 @@ export const Styles = createUseStyles({
       outline: '2px solid #1da1f2',
       outlineOffset: '2px',
     },
+  },
+  header: {
+    fontSize: '1.5rem',
+    fontWeight: 700,
+    color: '#1da1f2',
+    marginBottom: '0.5rem',
+    textAlign: 'center',
+    letterSpacing: '0.5px',
   },
   form: {
     display: 'flex',
@@ -99,12 +99,6 @@ export const Styles = createUseStyles({
       boxShadow: '0 2px 8px rgba(29,161,242,0.10)',
     },
   },
-  actions: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    gap: '1rem',
-    marginTop: '1rem',
-  },
   footer: {
     borderTop: '1px solid #e6ecf0',
     marginTop: '2rem',
@@ -132,5 +126,11 @@ export const Styles = createUseStyles({
     fontSize: '0.97rem',
     fontStyle: 'italic',
     fontWeight: 500,
+  },
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '1rem',
+    marginTop: '1rem',
   },
 });
