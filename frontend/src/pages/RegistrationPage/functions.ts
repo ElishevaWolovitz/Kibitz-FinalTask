@@ -14,13 +14,11 @@ const createNewShmoozer = async (login: (name:string, id: string|null) => void,
             const newShmoozer = createNewShmoozerResults.data.data; 
             login(newShmoozer.shmoozerName, newShmoozer._id);
             naviagte('../home');
-            console.log("New shmoozer created:", newShmoozer);
         } 
 }
 
 export const onSubmit = (login: (name:string, id: string|null) => void, 
     naviagte: (path:string)=>void, newShmoozer: ShmoozerType) => {
-        console.log("Submitting new shmoozer:", newShmoozer);
         createNewShmoozer(login, naviagte, newShmoozer);
 };
 
