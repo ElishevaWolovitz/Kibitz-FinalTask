@@ -53,8 +53,6 @@ export const controlUpdateKib = async (req: Request, res: Response) => {
     const { id: kibId } = req.params;
     const shmoozerId = req.headers["x-shmoozerid"] as string;
     const updateData = req.body as Partial<KibType>;
-    console.log(`logged in shmoozerId is: ${shmoozerId}, kibId is: ${kibId}, 
-        updateData is:`, updateData);
     const updatedKib = await manageUpdateKib(kibId, updateData, shmoozerId).catch(errorHandler(res, 400));
     if(updatedKib) 
         successHandler(res, `Shmoozer ${shmoozerId} updated 1 kib (kib id: ${kibId}).`, updatedKib, 200);
@@ -69,7 +67,11 @@ export const controlDeleteKib = async (req: Request, res: Response) => {
     if(shmoozerName) {
         const deleteKibResult = await manageDeleteKib(kibId, shmoozerName).catch(errorHandler(res, 400));
         if(deleteKibResult)
-            successHandler(res, `Shmoozer ${shmoozerName} deleted 1 kib (kib id: ${kibId}).`, deleteKibResult, 200);
+            successHandler(
+                res, 
+                `Shmoozer ${shmoozerName} deleted 1 kib (kib id: ${kibId}).`, 
+                deleteKibResult, 
+                200);
     }
     else 
         errorHandler(res, 400)(new Error("cannot delete, no shmoozer logged in"));

@@ -24,7 +24,7 @@ export const manageReadAllKibs = async ():
 // Read kibs by shmoozer ID
 export const manageReadKibsByShmoozerId = async (shmoozerId: string | Types.ObjectId):
     Promise<KibType[]> => {
-    return await repositoryReadKibsByShmoozerId(shmoozerId);
+        return await repositoryReadKibsByShmoozerId(shmoozerId);
 };
 
 // Read One
