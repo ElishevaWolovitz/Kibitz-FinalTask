@@ -1,19 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
 export const Styles = createUseStyles({
-card: {
-    border: '1px solid #e0e0e0',
-    borderRadius: 16,
-    padding: 20,
-    background: '#fff',
-    boxShadow: '0 2px 12px rgba(9,132,227,0.08)',
-    maxWidth: 540,
-    width: '100%',
-    margin: '0 auto 24px auto',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 8,
-  },
   header: {
     display: 'flex',
     alignItems: 'center',
