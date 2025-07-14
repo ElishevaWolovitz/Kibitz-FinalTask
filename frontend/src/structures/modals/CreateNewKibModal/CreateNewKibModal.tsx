@@ -12,10 +12,10 @@ const CreateNewKibModal =({onClose, createNewItem}: CreateNewKibModalProps) => {
     const classes = Styles();
     const { shmoozerId, shmoozerName } = useShmoozerName();
     const {
-            register,
-            handleSubmit,             
-            formState: { errors } 
-        } = useForm<KibType>();
+        register,
+        handleSubmit,             
+        formState: { errors } 
+    } = useForm<KibType>();
 
     return (
         <div className={classes.modalOverlay}>

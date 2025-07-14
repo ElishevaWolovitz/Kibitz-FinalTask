@@ -29,14 +29,6 @@ export const Styles = createUseStyles({
     gap: '1.5rem',
     position: 'relative',
   },
-  header: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    color: '#1da1f2',
-    marginBottom: '0.5rem',
-    textAlign: 'center',
-    letterSpacing: '0.5px',
-  },
   closeButton: {
     position: 'absolute',
     top: 18,
@@ -55,16 +47,18 @@ export const Styles = createUseStyles({
       outlineOffset: '2px',
     },
   },
+  header: {
+    fontSize: '1.5rem',
+    fontWeight: 700,
+    color: '#1da1f2',
+    marginBottom: '0.5rem',
+    textAlign: 'center',
+    letterSpacing: '0.5px',
+  },
   form: {
     display: 'flex',
     flexDirection: 'column',
     gap: '1.25rem',
-  },
-  actions: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    gap: '1rem',
-    marginTop: '1rem',
   },
   label: {
     fontWeight: 500,
@@ -95,6 +89,14 @@ export const Styles = createUseStyles({
       opacity: 1,
     },
   },
+  error: {
+    color: '#d63031',
+    fontSize: '0.95rem',
+    marginTop: '0.25rem',
+    fontWeight: 500,
+    letterSpacing: '0.01em',
+    lineHeight: 1.3,
+  },
   textarea: {
     border: '1.5px solid #e6ecf0',
     borderRadius: 16,
@@ -111,12 +113,10 @@ export const Styles = createUseStyles({
       boxShadow: '0 2px 8px rgba(29,161,242,0.10)',
     },
   },
-  error: {
-    color: '#d63031',
-    fontSize: '0.95rem',
-    marginTop: '0.25rem',
-    fontWeight: 500,
-    letterSpacing: '0.01em',
-    lineHeight: 1.3,
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '1rem',
+    marginTop: '1rem',
   },
 })
