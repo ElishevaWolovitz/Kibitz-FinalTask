@@ -9,6 +9,12 @@ export const Styles = createUseStyles({
     minHeight: "80vh",
     background: "#f7f9fa",
   },
+  logoutButton: {
+    position: "absolute",
+    top: "1rem",
+    right: "1rem",
+    padding: "0.4rem 1rem",
+  },
   title: {
     fontSize: "2.5rem",
     fontWeight: 700,
@@ -21,11 +27,6 @@ export const Styles = createUseStyles({
     color: "#657786",
     marginBottom: "2rem",
   },
-  buttonGroup: {
-    display: "flex",
-    gap: "1.5rem",
-    marginTop: "rem",
-  },
   navbarOverride: {
     borderRadius: 24,
     overflow: 'hidden', 
@@ -33,10 +34,9 @@ export const Styles = createUseStyles({
     boxShadow: '0 2px 8px rgba(29,161,242,0.08)',
     border: '1px solid #657786',
   },
-  logoutButton: {
-    position: "absolute",
-    top: "1rem",
-    right: "1rem",
-    padding: "0.4rem 1rem",
-  }
+  buttonGroup: {
+    display: "flex",
+    gap: "1.5rem",
+    marginTop: "rem",
+  },
 });

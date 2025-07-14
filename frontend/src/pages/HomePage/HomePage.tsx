@@ -7,9 +7,9 @@ import { ToastContainer} from 'react-toastify';
 import { toastifyTimer } from '../../consts'
 
 const HomePage = () => {
+  const classes = Styles();
   const { logout, shmoozerName} = useShmoozerName();
   const navigate = useNavigate();
-  const classes = Styles();
   const onLogout = () => {
       logout();
       navigate("/");

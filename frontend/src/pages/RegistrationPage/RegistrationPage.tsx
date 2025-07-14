@@ -15,11 +15,10 @@ const RegistrationPage =( ) => {
     const navigate = useNavigate();
     const { login } = useShmoozerName();
     const {
-            register,
-            handleSubmit,             
-            formState: { errors } 
-        } = useForm<ShmoozerType>();
-    
+        register,
+        handleSubmit,             
+        formState: { errors } 
+    } = useForm<ShmoozerType>();
     return (
         <>
             <ToastContainer autoClose={toastifyTimer}/>
