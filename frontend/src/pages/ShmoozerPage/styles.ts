@@ -4,6 +4,16 @@ export const Styles = createUseStyles({
     pageContainer: {
         background: '#f5f8fa',
     },
+    topBar: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#ffffff',
+        borderBottom: '1px solid #e6ecf0',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000
+    },
     headerContainer: {
         display: 'flex',
         alignItems: 'center',
@@ -21,14 +31,10 @@ export const Styles = createUseStyles({
         letterSpacing: '1px',
         margin: 0,
     },
-    topBar: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-        borderBottom: '1px solid #e6ecf0',
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000
-    }
+    shmoozer: {
+
+    },
+    feed: {
+
+    },
 });

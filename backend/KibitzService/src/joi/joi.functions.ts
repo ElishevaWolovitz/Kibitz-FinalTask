@@ -20,9 +20,9 @@ export const validateBody = (schema: Joi.ObjectSchema) => {
 };
 
 export const validateParams = (schema: Joi.ObjectSchema) => {
-    const validateRequestParams = (req: Request, res: Response, next: NextFunction): void =>
-      {runValidation(schema, req.params, res, next);
-        console.log(`in validateParams function req.params is: ${JSON.stringify(req.params)}`);
-      }
-    return validateRequestParams;
-  };
+  const validateRequestParams = (req: Request, res: Response, next: NextFunction): void =>
+    {runValidation(schema, req.params, res, next);
+      //console.log(`in validateParams function req.params is: ${JSON.stringify(req.params)}`);
+    }
+  return validateRequestParams;
+};

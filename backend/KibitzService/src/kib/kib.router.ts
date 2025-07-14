@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import { 
     controlCreateKib, 
     controlReadAllKibs, 
-    controlReadKibsByShmoozerName,
+    controlReadKibsByShmoozerId,
     controlReadKib, 
     controlUpdateKib, 
     controlDeleteKib 
@@ -10,7 +10,8 @@ import {
 import {
     kibBodySchema,
     kibUpdateBodySchema,
-    kibIdParamSchema
+    kibIdParamSchema, 
+    shmoozerIdParamSchema
   } from './kib.validator';
   import { validateBody, validateParams } from '../joi/joi.functions';
 
@@ -27,8 +28,9 @@ router.get(
     controlReadAllKibs
 );
 router.get(
-    '/shmoozer', 
-    controlReadKibsByShmoozerName
+    '/shmoozer/:id',
+    validateParams(shmoozerIdParamSchema), 
+    controlReadKibsByShmoozerId
 );
 router.get(
     '/:id', 

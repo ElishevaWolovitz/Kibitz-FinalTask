@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { 
     manageCreateKib, 
     manageReadAllKibs, 
-    manageReadKibsByShmoozerName,
+    manageReadKibsByShmoozerId,
     manageReadKib, 
     manageUpdateKib, 
     manageDeleteKib 
@@ -27,13 +27,13 @@ export const controlReadAllKibs = async (req: Request, res: Response) => {
 };
 
 // Read all kibs by specific shmoozer given shmoozeName
-export const controlReadKibsByShmoozerName = async (req: Request, res: Response) => {
+export const controlReadKibsByShmoozerId = async (req: Request, res: Response) => {
     const { shmoozerId } = req.params;
-    const shmoozerName = req.headers["x-shmoozerName"] as string;
-    if(shmoozerName) {
-        const kibsResult = await manageReadKibsByShmoozerName(shmoozerName).catch(errorHandler(res, 400));
+    if(shmoozerId) {
+        const kibsResult = await manageReadKibsByShmoozerId(shmoozerId)
+            .catch(errorHandler(res, 400));
         if(kibsResult)
-            successHandler(res, `Read kibs for shmoozer ${shmoozerName}
+            successHandler(res, `Read kibs for shmoozer ${shmoozerId}
             (${shmoozerId}).`, kibsResult, 200);
     }
     else 
@@ -51,13 +51,11 @@ export const controlReadKib = async (req: Request, res: Response) => {
 // Update a specific shmoozers kib given shmoozerName
 export const controlUpdateKib = async (req: Request, res: Response) => {
     const { id: kibId } = req.params;
-    const shmoozerName = req.headers["x-shmoozerName"] as string;
-    if(shmoozerName) {
-        const updateData = req.body as Partial<KibType>;
-        const updatedKib = await manageUpdateKib(kibId, updateData, shmoozerName).catch(errorHandler(res, 400));
-        if(updatedKib) 
-            successHandler(res, `Shmoozer ${shmoozerName} updated 1 kib (kib id: ${kibId}).`, updatedKib, 200);
-    }
+    const shmoozerId = req.headers["x-shmoozerId"] as string;
+    const updateData = req.body as Partial<KibType>;
+    const updatedKib = await manageUpdateKib(kibId, updateData, shmoozerId).catch(errorHandler(res, 400));
+    if(updatedKib) 
+        successHandler(res, `Shmoozer ${shmoozerId} updated 1 kib (kib id: ${kibId}).`, updatedKib, 200);
     else 
         errorHandler(res, 400)(new Error("cannot edit, no shmoozer logged in"));
 };
@@ -65,7 +63,7 @@ export const controlUpdateKib = async (req: Request, res: Response) => {
 // Delete a specific shmoozers kib given shmoozerName
 export const controlDeleteKib = async (req: Request, res: Response) => {
     const { id: kibId } = req.params;
-    const shmoozerName = req.headers["x-shmoozerName"] as string;
+    const shmoozerName = req.headers["x-shmoozerId"] as string;
     if(shmoozerName) {
         const deleteKibResult = await manageDeleteKib(kibId, shmoozerName).catch(errorHandler(res, 400));
         if(deleteKibResult)

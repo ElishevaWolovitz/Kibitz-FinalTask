@@ -31,15 +31,19 @@ const findAndEditKib = (editedKib: KibType) => (kib: KibType) =>
 export const editKib = async (
   api: AxiosInstance,
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
-  editedKib: KibType,) => {
-    const { shmoozerName, shmoozerId } = useShmoozerName();
-    console.log("in edit kib function and shmoozerName context is:", shmoozerName);
+  shmoozerId: string|null,
+  editedKib: KibType) => {
+    console.log("in edit kib function and shmoozerName context is:", shmoozerId);
     if(shmoozerId != editedKib.shmoozerId) {
       toast.error("You can only edit your own kibs.");
       return null;
     }
     const { _id, ...kibData } = editedKib;
-    const updatedKibResults = await api.patch(`${route}/${editedKib._id}`, kibData)
+    const updatedKibResults = await api.patch(`${route}/${editedKib._id}`,
+      kibData,
+      {headers:{
+        "x-shmoozerId": shmoozerId
+      }})
     .catch(handleError("Failed to update kib. Please try again."));
     if (updatedKibResults)
       {
@@ -59,13 +63,17 @@ export const deleteKib = async (
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   kibs: KibType[],
   kibToDelete: KibType) => {
-  const { shmoozerName, shmoozerId } = useShmoozerName();
-  console.log("in edit kib function and shmoozerName context is:", shmoozerName);
+  const { shmoozerId, shmoozerName } = useShmoozerName();
   if(shmoozerId != kibToDelete.shmoozerId) {
-    toast.error("You can only edit your own kibs.");
+    toast.error("You can only delete your own kibs.");
     return null;
   }
-  const deleteKibResults = await api.delete(`${route}/${kibToDelete._id}`).catch(handleError("Failed to delete kib. Please try again."));
+  const deleteKibResults = await api.delete(`${route}/${kibToDelete._id}`,
+    {headers:{
+        "x-shmoozerName": shmoozerName
+      }}
+  )
+    .catch(handleError("Failed to delete kib. Please try again."));
   if(deleteKibResults) {
     setKibs(filter(findKibToDeleteById(kibToDelete))(kibs));
     console.log(`Deleted kib with id: ${kibToDelete._id}`);

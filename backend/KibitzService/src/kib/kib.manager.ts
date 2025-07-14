@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { 
     repositoryCreateKib, 
     repositoryReadAllKibs, 
-    repositoryReadKibsByShmoozerName,
+    repositoryReadKibsByShmoozerId,
     repositoryReadKib, 
     repositoryUpdateKib, 
     repositoryDeleteKib 
@@ -22,9 +22,9 @@ export const manageReadAllKibs = async ():
 }; 
 
 // Read kibs by shmoozer ID
-export const manageReadKibsByShmoozerName = async (shmoozerName: string | Types.ObjectId):
+export const manageReadKibsByShmoozerId = async (shmoozerId: string | Types.ObjectId):
     Promise<KibType[]> => {
-    return await repositoryReadKibsByShmoozerName(shmoozerName);
+    return await repositoryReadKibsByShmoozerId(shmoozerId);
 };
 
 // Read One
@@ -36,9 +36,9 @@ export const manageReadKib = async (kibId: string | Types.ObjectId):
 // Update   
 export const manageUpdateKib = async ( kibId: string | Types.ObjectId, 
     updateData: Partial<KibType>,
-    shmoozerName: string): 
+    shmoozerId: string): 
     Promise<KibType> => {
-        return await repositoryUpdateKib(kibId, updateData, shmoozerName);
+        return await repositoryUpdateKib(kibId, updateData, shmoozerId);
 };
 
 // Delete

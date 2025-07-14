@@ -31,7 +31,7 @@ const KibsPage = () => {
   const [filteredKibs, setFilteredKibs] = useState<KibType[]>([])
   const classes = Styles();
   const createNewItemButtonClasses = CreateNewItemButtonStyles();
-  const { logout } = useShmoozerName();
+  const { logout, shmoozerId } = useShmoozerName();
   const navigate = useNavigate();
   const onLogout = () => {
       logout();
@@ -63,7 +63,7 @@ const KibsPage = () => {
                 items={filteredKibs}
                 ItemPrint={PrintKib}
                 checkLoggedInUserForPost={checkLoggedInShmoozerForKib}
-                editItem={partial(editKib, [api, setKibs])}
+                editItem={partial(editKib, [api, setKibs, shmoozerId? shmoozerId : null])}
                 deleteItem={partial( deleteKib, [api, setKibs, kibs])}
                 EditItemModal={KibEditModal}
             />
