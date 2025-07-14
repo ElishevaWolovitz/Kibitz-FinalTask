@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { emptyToUndefined, emptyToZeroOrNumber } from "../functions";
 import CancelButton from '../../../components/Button/CancelButton';
 import { onSubmit } from './functions';
+import { useShmoozerName } from '../../../contexts/ShmoozerNameContext/ShmoozerNameContext';
 
 
 const EditKibModal = (
@@ -13,6 +14,7 @@ const EditKibModal = (
     likes, createdAt, onClose, editItem}: 
     EditKibModalProps) => {
         const classes = Styles();
+        const { shmoozerName } = useShmoozerName();
         const {
             register,
             handleSubmit,             
@@ -34,11 +36,15 @@ const EditKibModal = (
                     <button className={classes.closeButton} onClick={onClose}>
                     ×
                     </button>
-                    <div className={classes.header}>Edit Kib</div>
+                    <div className={classes.header}>Edit {shmoozerName}'s Kib</div>
                     <form onSubmit={handleSubmit(onSubmit({onClose, editItem}))} className={classes.form}>
                         <div>
                             <input type="hidden" {...register("_id")} value={_id} />
                             <strong>ID:</strong> {_id}
+                        </div>
+                        <div>
+                            <input type="hidden" {...register("shmoozerId")} value={shmoozerId} />
+                            {errors.shmoozerId && <span>This field is required</span>}
                         </div>
                         <label className={classes.label}>
                             Kib Name:
@@ -49,16 +55,6 @@ const EditKibModal = (
                                 placeholder="Kib Name"
                             />
                             {errors.kibName && <span>This field is required</span>}
-                        </label>
-                        <label className={classes.label}>
-                            Shmoozer ID:
-                            <input
-                                className={classes.input}
-                                type="text"
-                                {...register("shmoozerId", { required: true })}
-                                placeholder="Shmoozer ID"
-                            />
-                            {errors.shmoozerId && <span>This field is required</span>}
                         </label>
                         <label className={classes.label}>
                             Text:

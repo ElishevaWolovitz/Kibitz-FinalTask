@@ -37,27 +37,27 @@ const LoginPage = () => {
   return (
     <>
         <ToastContainer autoClose={toastifyTimer}/>
-        <div className={classes.container}>
-        <h2>Login to Kibitz</h2>
+        <div className={classes.pageContainer}>
+          <div className={classes.card}>
+            <h2 className={classes.title}>Login to Kibitz</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+                <input
+                className={classes.input}
+                type="text"
+                placeholder="Enter your shmoozer name"
+                {...register("shmoozerName", { required: "Shmoozer name is required" })}
+                />
+                {errors.shmoozerName && (
+                <p className={classes.error}>{errors.shmoozerName.message}</p>
+                )}
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-            className={classes.input}
-            type="text"
-            placeholder="Enter your shmoozer name"
-            {...register("shmoozerName", { required: "Shmoozer name is required" })}
-            />
-            {errors.shmoozerName && (
-            <p className={classes.error}>{errors.shmoozerName.message}</p>
-            )}
-
-            <button type="submit" className={classes.button}>Login</button>
-        </form>
-
-        <div className={classes.registerContainer}>
-            <p>Don't have a shmoozer account?</p>
-            <button className={classes.linkButton} onClick={handleRegister}>Register</button>
-        </div>
+                <button type="submit" className={classes.button}>Login</button>
+            </form>
+            <div className={classes.registerContainer}>
+                <p>Don't have a shmoozer account?</p>
+                <button className={classes.linkButton} onClick={handleRegister}>Register</button>
+            </div>
+          </div>
         </div>
     </>
   );

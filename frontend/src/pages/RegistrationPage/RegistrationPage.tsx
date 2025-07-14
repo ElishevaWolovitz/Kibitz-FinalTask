@@ -23,9 +23,11 @@ const RegistrationPage =( ) => {
     return (
         <>
             <ToastContainer autoClose={toastifyTimer}/>
-            <div className={classes.modalOverlay}>
-                <div className={classes.modalContent}>
-                    <div className={classes.header}>Create New Shmoozer</div>
+            <div className={classes.pageContainer}>
+                <div className={classes.headerContainer}>
+                    <div className={classes.title}>Register New Shmoozer</div>
+                </div>
+                <div className={classes.card}>
                     <form className={classes.form} onSubmit={handleSubmit(partial(onSubmit, [login, navigate]))}>
                         <label className={classes.label}>
                             Shmoozer Name:

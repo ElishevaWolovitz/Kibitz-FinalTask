@@ -9,8 +9,7 @@ const PrintKib = ({ item }: PrintKibProps) => {
         <div className={classes.header}>
             <span className={classes.kibName}>{item.kibName}</span>
             <span className={classes.shmoozerId}>
-                @shmoozer
-            {item.shmoozerId}</span>
+                @shmoozer: {item.shmoozerId}</span>
         </div>
         <div className={classes.text}>{item.text}</div>
         {item.media && (

@@ -42,7 +42,7 @@ export const editKib = async (
     const updatedKibResults = await api.patch(`${route}/${editedKib._id}`,
       kibData,
       {headers:{
-        "x-shmoozerId": shmoozerId
+        "x-shmoozerid": shmoozerId
       }})
     .catch(handleError("Failed to update kib. Please try again."));
     if (updatedKibResults)
@@ -62,15 +62,15 @@ export const deleteKib = async (
   api: AxiosInstance,
   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
   kibs: KibType[],
+  shmoozerId: string|null,
   kibToDelete: KibType) => {
-  const { shmoozerId, shmoozerName } = useShmoozerName();
   if(shmoozerId != kibToDelete.shmoozerId) {
     toast.error("You can only delete your own kibs.");
     return null;
   }
   const deleteKibResults = await api.delete(`${route}/${kibToDelete._id}`,
     {headers:{
-        "x-shmoozerName": shmoozerName
+        "x-shmoozerId": shmoozerId
       }}
   )
     .catch(handleError("Failed to delete kib. Please try again."));

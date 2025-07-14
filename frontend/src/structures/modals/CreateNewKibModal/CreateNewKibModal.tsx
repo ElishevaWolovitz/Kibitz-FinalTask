@@ -6,9 +6,11 @@ import SubmitButton from '../../../components/Button/SubmitButton';
 import CancelButton from '../../../components/Button/CancelButton';
 import { Styles } from './styles'
 import { onSubmit } from "./functions";
+import { useShmoozerName } from '../../../contexts/ShmoozerNameContext/ShmoozerNameContext';
 
 const CreateNewKibModal =({onClose, createNewItem}: CreateNewKibModalProps) => {
     const classes = Styles();
+    const { shmoozerId, shmoozerName } = useShmoozerName();
     const {
             register,
             handleSubmit,             
@@ -21,8 +23,13 @@ const CreateNewKibModal =({onClose, createNewItem}: CreateNewKibModalProps) => {
                 <button className={classes.closeButton} onClick={onClose}>
                 ×
                 </button>
-                <div className={classes.header}>Create New Shmoozer</div>
+                <div className={classes.header}>Create New Kib</div>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit({onClose, createNewItem}))}>
+                    <div>
+                        <input type="hidden" {...register("shmoozerId")} value={shmoozerId? shmoozerId : ''} />
+                        <strong> Shmoozer {shmoozerName}'s new kib:</strong>
+                        {errors.shmoozerId && <span>This field is required</span>}
+                    </div>
                     <label className={classes.label}>
                         Kib Name:
                         <input
@@ -32,16 +39,6 @@ const CreateNewKibModal =({onClose, createNewItem}: CreateNewKibModalProps) => {
                             placeholder="Kib Name"
                         />
                         {errors.kibName && <span className={classes.error}>This field is required</span>}
-                    </label>
-                    <label className={classes.label}>
-                        Shmoozer ID:
-                        <input
-                            className={classes.input}
-                            type="text"
-                            {...register("shmoozerId", { required: true })}
-                            placeholder="Shmoozer ID"
-                        />
-                        {errors.shmoozerId && <span className={classes.error}>This field is required</span>}
                     </label>
                     <label className={classes.label}>
                         Text:

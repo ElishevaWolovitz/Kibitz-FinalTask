@@ -28,7 +28,7 @@ export const controlReadAllKibs = async (req: Request, res: Response) => {
 
 // Read all kibs by specific shmoozer given shmoozeName
 export const controlReadKibsByShmoozerId = async (req: Request, res: Response) => {
-    const { shmoozerId } = req.params;
+    const { id: shmoozerId } = req.params;
     if(shmoozerId) {
         const kibsResult = await manageReadKibsByShmoozerId(shmoozerId)
             .catch(errorHandler(res, 400));
@@ -51,8 +51,10 @@ export const controlReadKib = async (req: Request, res: Response) => {
 // Update a specific shmoozers kib given shmoozerName
 export const controlUpdateKib = async (req: Request, res: Response) => {
     const { id: kibId } = req.params;
-    const shmoozerId = req.headers["x-shmoozerId"] as string;
+    const shmoozerId = req.headers["x-shmoozerid"] as string;
     const updateData = req.body as Partial<KibType>;
+    console.log(`logged in shmoozerId is: ${shmoozerId}, kibId is: ${kibId}, 
+        updateData is:`, updateData);
     const updatedKib = await manageUpdateKib(kibId, updateData, shmoozerId).catch(errorHandler(res, 400));
     if(updatedKib) 
         successHandler(res, `Shmoozer ${shmoozerId} updated 1 kib (kib id: ${kibId}).`, updatedKib, 200);
@@ -63,7 +65,7 @@ export const controlUpdateKib = async (req: Request, res: Response) => {
 // Delete a specific shmoozers kib given shmoozerName
 export const controlDeleteKib = async (req: Request, res: Response) => {
     const { id: kibId } = req.params;
-    const shmoozerName = req.headers["x-shmoozerId"] as string;
+    const shmoozerName = req.headers["x-shmoozerid"] as string;
     if(shmoozerName) {
         const deleteKibResult = await manageDeleteKib(kibId, shmoozerName).catch(errorHandler(res, 400));
         if(deleteKibResult)

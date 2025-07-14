@@ -1,7 +1,6 @@
 import { Types } from "mongoose";
 import { KibModel } from "../models/kib.model";
 import { KibType } from "../types/kib.type";
-import { ShmoozerModel } from "../models/shmoozer.model";
 
 // Create
 export const repositoryCreateKib = async (kib: KibType): Promise<KibType> => {

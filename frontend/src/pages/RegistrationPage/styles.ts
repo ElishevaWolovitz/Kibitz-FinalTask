@@ -1,67 +1,44 @@
 import { createUseStyles } from 'react-jss';
 
 export const Styles = createUseStyles({
-  modalOverlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    background: 'rgba(29,161,242,0.10)',
+  pageContainer: {
+    background: '#f5f8fa',
+    minHeight: '100vh',
+    padding: '2rem',
+  },
+  headerContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1200,
+    marginBottom: '2rem',
+    paddingTop: '2rem',
+    gap: '1.5rem',
+    flexWrap: 'wrap',
+    background: '#f5f8fa',
   },
-  modalContent: {
-    background: '#fff',
+  title: {
+    fontSize: '2.2rem',
+    fontWeight: 700,
+    color: '#1da1f2',
+    letterSpacing: '1px',
+    margin: 0,
+  },
+  card: {
+    background: '#ffffff',
     borderRadius: 24,
     boxShadow: '0 8px 32px rgba(29,161,242,0.18)',
     padding: '2.5rem 2rem 2rem 2rem',
-    minWidth: 340,
-    maxWidth: 420,
     width: '100%',
+    maxWidth: 420,
     display: 'flex',
     flexDirection: 'column',
     gap: '1.5rem',
-    position: 'relative',
-  },
-  header: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    color: '#1da1f2',
-    marginBottom: '0.5rem',
-    textAlign: 'center',
-    letterSpacing: '0.5px',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 18,
-    right: 18,
-    background: 'transparent',
-    border: 'none',
-    color: '#657786',
-    fontSize: '1.5rem',
-    cursor: 'pointer',
-    transition: 'color 0.18s',
-    '&:hover': {
-      color: '#1da1f2',
-    },
-    '&:focus-visible': {
-      outline: '2px solid #1da1f2',
-      outlineOffset: '2px',
-    },
+    margin: '0 auto',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     gap: '1.25rem',
-  },
-  actions: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    gap: '1rem',
-    marginTop: '1rem',
   },
   label: {
     fontWeight: 500,
@@ -78,11 +55,11 @@ export const Styles = createUseStyles({
     padding: '0.5rem 1rem',
     fontSize: '1.05rem',
     color: '#14171a',
-    marginTop: '0.25rem',
     outline: 'none',
     transition: 'border 0.18s, box-shadow 0.18s',
     background: '#fff',
     fontWeight: 500,
+    marginTop: '0.25rem',
     '&:focus': {
       border: '1.5px solid #1da1f2',
       boxShadow: '0 2px 8px rgba(29,161,242,0.10)',
@@ -100,4 +77,10 @@ export const Styles = createUseStyles({
     letterSpacing: '0.01em',
     lineHeight: 1.3,
   },
-})
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '1rem',
+    marginTop: '1rem',
+  },
+});

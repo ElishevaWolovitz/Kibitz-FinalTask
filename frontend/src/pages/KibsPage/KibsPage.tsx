@@ -64,7 +64,7 @@ const KibsPage = () => {
                 ItemPrint={PrintKib}
                 checkLoggedInUserForPost={checkLoggedInShmoozerForKib}
                 editItem={partial(editKib, [api, setKibs, shmoozerId? shmoozerId : null])}
-                deleteItem={partial( deleteKib, [api, setKibs, kibs])}
+                deleteItem={partial( deleteKib, [api, setKibs, kibs, shmoozerId? shmoozerId : null])}
                 EditItemModal={KibEditModal}
             />
             <button type="button"

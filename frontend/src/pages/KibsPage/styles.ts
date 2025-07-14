@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss';
 
 export const Styles = createUseStyles({
   pageContainer: {
-      background: '#f5f8fa',
+    background: '#f5f8fa',
   },
   headerContainer: {
     display: 'flex',
