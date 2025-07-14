@@ -6,18 +6,6 @@ export const Styles = createUseStyles({
     minHeight: "100vh",
     padding: "2rem",
   },
-  topBar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#ffffff",
-    borderBottom: "1px solid #e6ecf0",
-    padding: "1rem 2rem",
-    marginBottom: "2rem",
-    position: "sticky",
-    top: 0,
-    zIndex: 1000,
-  },
   card: {
     maxWidth: "400px",
     margin: "0 auto",
