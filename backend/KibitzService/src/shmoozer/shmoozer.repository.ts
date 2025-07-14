@@ -7,11 +7,6 @@ import { Types } from 'mongoose';
 export const repositoryCreateShmoozer = async (shmoozer: ShmoozerType): Promise<ShmoozerType> => {
     return await new ShmoozerModel(shmoozer).save();
 };
- 
-//Read All/Get All
-export const repositoryReadAllShmoozers = async (): Promise<ShmoozerType[]>  => {
-    return await ShmoozerModel.find();
-}
 
 // Read One
 export const repositoryReadShmoozer = async (shmoozerId: string | Types.ObjectId): Promise<ShmoozerType> => {

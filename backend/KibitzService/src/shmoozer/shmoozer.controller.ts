@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { 
     manageCreateShmoozer, 
-    manageReadAllShmoozers,
     manageReadShmoozer,
     manageFindShmoozerByName
 } from "./shmoozer.manager";
@@ -22,13 +21,6 @@ export const controlCreateShmoozer = async (req: Request, res: Response) => {
         successHandler(res, `Created new shmoozer (shmoozer id: ${shmoozer._id}).`, createShmoozerResult, 200);
 };
 
-// Read All
-export const controlReadAllShmoozers = async (req: Request, res: Response) => {
-    const shmoozers = await manageReadAllShmoozers().catch(errorHandler(res, 400));
-    if(shmoozers)
-        successHandler(res, `Read all shmoozers.`, shmoozers, 200);
-};
-
 //Read One
 export const controlReadShmoozer = async (req: Request, res: Response) => {
     const { id: shmoozerId } = req.params;
@@ -40,12 +32,10 @@ export const controlReadShmoozer = async (req: Request, res: Response) => {
 // Find Shmoozer by Name 
 export const controlFindShmoozeByName = async (req: Request, res: Response) => {
     const { shmoozerName: shmoozerName } = req.params;
-    console.log(`Attempting to find shmoozer by name in shmoozer backend controller: ${shmoozerName}`);
     const shmoozer = await manageFindShmoozerByName(shmoozerName).catch(errorHandler(res, 400));
     if(shmoozer) 
         successHandler(res, `Login successful for shmoozer: ${shmoozerName}.`, shmoozer, 200);
     else{
         res.status(201).json({ message: `Shmoozer with name ${shmoozerName} not found.`, data: null });
-        console.log(`Shmoozer with name ${shmoozerName} not found.`);
     }
 };
