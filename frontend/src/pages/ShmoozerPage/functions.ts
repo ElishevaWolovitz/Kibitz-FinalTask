@@ -3,13 +3,15 @@ import type { AxiosInstance } from "axios";
 import 'react-toastify/dist/ReactToastify.css';
 import { handleError } from "../../functions";
 import type { KibType } from "../../types/kib.types";
+import { shmoozerRoute } from './consts';
+import { kibsRoute } from '../KibsPage/consts';
 
 export const getShmoozer = async(
   setShmoozer: React.Dispatch<React.SetStateAction<ShmoozerType>>,
   shmoozerId: string|null,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   api: AxiosInstance) => {
-    const shmoozer = await api.get(`/shmoozer/${shmoozerId}`).catch(
+    const shmoozer = await api.get(`${shmoozerRoute}/${shmoozerId}`).catch(
       handleError("Failed to get shmoozer from database"))
     if(shmoozer)
       setShmoozer(shmoozer.data.data);
@@ -22,7 +24,7 @@ export const getKibsForShmoozer = async(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   api: AxiosInstance) => {
     setLoading(false);
-    const kibs = await api.get(`/kibs/shmoozer/${shmoozerId}`,{})
+    const kibs = await api.get(`${kibsRoute}${shmoozerRoute}/${shmoozerId}`,{})
         .catch(handleError("Failed to get kibs from database"))
     if(kibs)
       setKibs(kibs.data.data);

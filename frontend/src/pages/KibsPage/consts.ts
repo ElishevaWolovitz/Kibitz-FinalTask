@@ -1,1 +1,1 @@
-export const route = '/kibs';
+export const kibsRoute = '/kibs';

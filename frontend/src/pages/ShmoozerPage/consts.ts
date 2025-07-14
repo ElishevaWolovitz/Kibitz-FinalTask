@@ -1,2 +1,1 @@
-
-export const toastifyTimer = 1000;
+export const shmoozerRoute = '/shmoozer';

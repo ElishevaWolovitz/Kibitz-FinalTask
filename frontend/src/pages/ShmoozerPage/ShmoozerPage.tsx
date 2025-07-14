@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ToastContainer} from 'react-toastify';
-import { toastifyTimer } from './consts';
+import { toastifyTimer } from '../../consts';
 import Navbar from '../../components/Navbar';
 import type { ShmoozerType } from '../../types/shmoozer.types';
 import { getShmoozer, getKibsForShmoozer } from './functions';

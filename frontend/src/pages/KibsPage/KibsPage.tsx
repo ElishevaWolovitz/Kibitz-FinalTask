@@ -6,7 +6,9 @@ import KibEditModal from '../../structures/modals/EditKibModal';
 import KibCreateNewModal from '../../structures/modals/CreateNewKibModal';
 import List from '../../components/List';
 import type { KibType } from '../../types/kib.types';
-import { getKibs, 
+import { 
+  doLogout, 
+  getKibs, 
   editKib, 
   deleteKib, 
   filterKibsByName, 
@@ -33,10 +35,6 @@ const KibsPage = () => {
   const createNewItemButtonClasses = CreateNewItemButtonStyles();
   const { logout, shmoozerId } = useShmoozerName();
   const navigate = useNavigate();
-  const onLogout = () => {
-      logout();
-      navigate("/");
-    };
   useEffect(() => {
     getKibs(setKibs, setLoading, api);
   }, [api]);
@@ -46,7 +44,7 @@ const KibsPage = () => {
       <ToastContainer autoClose={toastifyTimer}/>
       <div className={classes.topBar}>
         <Navbar />
-        <LogoutButton onClick={onLogout}/>
+        <LogoutButton onClick={partial(doLogout, [logout, navigate])}/>
       </div>
       <div className={classes.pageContainer}>
         <div className={classes.headerContainer}>
