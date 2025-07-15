@@ -25,6 +25,8 @@ import { api } from '../../consts';
 import LogoutButton from '../../components/Button/LogoutButton';
 import { useShmoozerName } from "../../contexts/ShmoozerNameContext/ShmoozerNameContext";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from '@tanstack/react-query';
+
 
 const KibsPage = () => {
   const [kibs, setKibs] = useState<KibType[]>([]);
