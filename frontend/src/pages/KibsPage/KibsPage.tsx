@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Navbar from '../../components/Navbar';
 import SearchBar from '../../components/SearchBar';
@@ -25,22 +25,29 @@ import { api } from '../../consts';
 import LogoutButton from '../../components/Button/LogoutButton';
 import { useShmoozerName } from "../../contexts/ShmoozerNameContext/ShmoozerNameContext";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 
 const KibsPage = () => {
-  const [kibs, setKibs] = useState<KibType[]>([]);
+  //const [kibs, setKibs] = useState<KibType[]>([]);
   const [openCreateNewModal, setOpenCreateNewModal] = useState(false);
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [filteredKibs, setFilteredKibs] = useState<KibType[]>([])
   const classes = Styles();
   const createNewItemButtonClasses = CreateNewItemButtonStyles();
   const { logout, shmoozerId } = useShmoozerName();
   const navigate = useNavigate();
-  useEffect(() => {
-    getKibs(setKibs, setLoading, api);
-  }, [api]);
-
+  // useEffect(() => {
+  //   getKibs(setKibs, setLoading, api);
+  // }, [api]);
+  const {
+    data: kibs = [],
+    isLoading,
+  } = useQuery<KibType[]>({
+    queryKey: ["kibs"],
+    queryFn: () => getKibs(api),
+  });
+  const queryClient = useQueryClient();
   return (
     <>
       <ToastContainer autoClose={toastifyTimer}/>
@@ -52,7 +59,7 @@ const KibsPage = () => {
         <div className={classes.headerContainer}>
           <h1 className={classes.title}>Kibs Page</h1>
         </div>
-        {loading ? (<Spinner />) : (
+        {isLoading ? (<Spinner />) : (
           <>
             <SearchBar 
               items={kibs}
@@ -63,8 +70,8 @@ const KibsPage = () => {
                 items={filteredKibs}
                 ItemPrint={PrintKib}
                 checkLoggedInUserForPost={checkLoggedInShmoozerForKib}
-                editItem={partial(editKib, [api, setKibs, shmoozerId? shmoozerId : null])}
-                deleteItem={partial( deleteKib, [api, setKibs, kibs, shmoozerId? shmoozerId : null])}
+                editItem={partial(editKib, [api, queryClient, shmoozerId? shmoozerId : null])}
+                deleteItem={partial( deleteKib, [api, queryClient, kibs, shmoozerId? shmoozerId : null])}
                 EditItemModal={KibEditModal}
             />
             <button type="button"
@@ -75,7 +82,7 @@ const KibsPage = () => {
             {openCreateNewModal && (
               <KibCreateNewModal
                 onClose={partial(setOpenCreateNewModal, [false])}
-                createNewItem={partial(createNewKib, [api, setKibs])}
+                createNewItem={partial(createNewKib, [api, queryClient])}
               />
             )}
           </>
