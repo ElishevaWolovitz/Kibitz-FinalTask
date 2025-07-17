@@ -29,7 +29,7 @@ export const getKibs = async(api: AxiosInstance): Promise<KibType[]> => {
       .catch(handleError("Failed to get kibs from database"));
   if(!kibsResponse)
     return [];
-  
+
   return kibsResponse.data.data;
 }
 
@@ -43,28 +43,6 @@ export const checkLoggedInShmoozerForKib = (kib: KibType) => {
 
 const findAndEditKib = (editedKib: KibType) => (kib: KibType) =>
   kib._id === editedKib._id ? { ...kib, ...editedKib } : kib;
-
-// export const editKib = async (
-//   api: AxiosInstance,
-//   setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
-//   shmoozerId: string|null,
-//   editedKib: KibType) => {
-//     if(shmoozerId != editedKib.shmoozerId) {
-//       toast.error("You can only edit your own kibs.");
-//       return null;
-//     }
-//     const { _id, ...kibData } = editedKib;
-//     const updatedKibResults = await api
-//       .patch(`${kibsRoute}/${editedKib._id}`,
-//         kibData,
-//         {headers:{
-//           "x-shmoozerid": shmoozerId}})
-//       .catch(handleError("Failed to update kib. Please try again."));
-//     if (updatedKibResults) {
-//       setKibs(map(findAndEditKib(editedKib)));
-//       toast.success("Kib updated successfully!");
-//     }
-// };
 
 export const editKib = async (
   api: AxiosInstance,

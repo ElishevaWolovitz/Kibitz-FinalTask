@@ -1,32 +1,23 @@
-import type { ShmoozerType } from "../../types/shmoozer.types";
 import type { AxiosInstance } from "axios";
 import 'react-toastify/dist/ReactToastify.css';
 import { handleError } from "../../functions";
-import type { KibType } from "../../types/kib.types";
 import { shmoozerRoute } from './consts';
 import { kibsRoute } from '../KibsPage/consts';
+import type { ShmoozerType } from "../../types/shmoozer.types";
+import type { KibType } from "../../types/kib.types";
 
 export const getShmoozer = async(
-  setShmoozer: React.Dispatch<React.SetStateAction<ShmoozerType>>,
-  shmoozerId: string|null,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  api: AxiosInstance) => {
-    const shmoozer = await api.get(`${shmoozerRoute}/${shmoozerId}`).catch(
-      handleError("Failed to get shmoozer from database"))
-    if(shmoozer)
-      setShmoozer(shmoozer.data.data);
-      setLoading(false); 
+  api: AxiosInstance,
+  shmoozerId: string|null): Promise<ShmoozerType> => {
+    const shmoozerResponse = await api.get(`${shmoozerRoute}/${shmoozerId}`)
+    .catch(handleError("Failed to get shmoozer from database"))
+    return shmoozerResponse?.data.data; 
 }
 
 export const getKibsForShmoozer = async(
-  setKibs: React.Dispatch<React.SetStateAction<KibType[]>>,
-  shmoozerId: string|null,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  api: AxiosInstance) => {
-    setLoading(false);
-    const kibs = await api.get(`${kibsRoute}${shmoozerRoute}/${shmoozerId}`,{})
+  api: AxiosInstance,
+  shmoozerId: string|null): Promise<KibType[]> => {
+    const kibsForShmoozerResponse = await api.get(`${kibsRoute}${shmoozerRoute}/${shmoozerId}`,{})
         .catch(handleError("Failed to get kibs from database"))
-    if(kibs)
-      setKibs(kibs.data.data);
-      setLoading(false);
+    return kibsForShmoozerResponse?.data.data;
 }

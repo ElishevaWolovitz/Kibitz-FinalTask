@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ToastContainer} from 'react-toastify';
 import { toastifyTimer } from '../../consts';
 import Navbar from '../../components/Navbar';
@@ -23,12 +23,10 @@ import {
   createNewKib,
   checkLoggedInShmoozerForKib
 } from '../KibsPage/functions';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const ShmoozerPage = () => {
-  const [shmoozer, setShmoozer] = useState<ShmoozerType>({} as ShmoozerType);
-  const [kibs, setKibs] = useState<KibType[]>([]);
   const [openCreateNewModal, setOpenCreateNewModal] = useState(false);
-  const [loading, setLoading] = useState(true);
   const { shmoozerName, shmoozerId } = useShmoozerName();
   const classes = Styles();
   const createNewItemButtonClasses = CreateNewItemButtonStyles();
@@ -38,11 +36,20 @@ const ShmoozerPage = () => {
       logout();
       navigate("/");
     };
-  
-  useEffect(() => {
-    getShmoozer(setShmoozer,  shmoozerId ?? null, setLoading, api)
-    getKibsForShmoozer(setKibs, shmoozerId ?? null, setLoading, api);
-  }, [api]); 
+  const {
+    data: shmoozer,
+    isLoading,
+  } = useQuery<ShmoozerType>({
+    queryKey: ["shmoozer"],
+    queryFn: () => getShmoozer(api, shmoozerId ?? null),
+  });
+  const {
+    data: kibs = [],
+  } = useQuery<KibType[]>({
+    queryKey: ["kibs", shmoozerId],
+    queryFn: () => getKibsForShmoozer(api, shmoozerId ?? null),
+  });
+  const queryClient = useQueryClient();
 
   return (
     <>
@@ -57,14 +64,14 @@ const ShmoozerPage = () => {
             <div className={classes.header}>
                 <div className={classes.avatar} />
                 <span className={classes.displayName}>
-                    {shmoozer.displayName}
+                    {shmoozer?.displayName}
                 </span>
             </div>
             <span className={classes.id}>
-                ID: {shmoozer._id}
+                ID: {shmoozer?._id}
             </span>
           </div>
-          {loading ? 
+          {isLoading ? 
             (
               <Spinner />
             ) : ( 
@@ -73,8 +80,8 @@ const ShmoozerPage = () => {
                     items={kibs}
                     ItemPrint={PrintKib}
                     checkLoggedInUserForPost={checkLoggedInShmoozerForKib}
-                    editItem={partial(editKib, [api, setKibs, shmoozerId? shmoozerId : null])}
-                    deleteItem={partial( deleteKib, [api, setKibs, kibs, shmoozerId? shmoozerId : null])}
+                    editItem={partial(editKib, [api, queryClient, shmoozerId? shmoozerId : null])}
+                    deleteItem={partial( deleteKib, [api, queryClient, kibs, shmoozerId? shmoozerId : null])}
                     EditItemModal={KibEditModal}
                   />
                   <button type="button"
@@ -85,7 +92,7 @@ const ShmoozerPage = () => {
                   {openCreateNewModal && (
                     <KibCreateNewModal
                       onClose={partial(setOpenCreateNewModal, [false])}
-                      createNewItem={partial(createNewKib, [api, setKibs])}
+                      createNewItem={partial(createNewKib, [api, queryClient])}
                     />
                   )}
             </>
